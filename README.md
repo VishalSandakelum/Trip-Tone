@@ -1,5 +1,12 @@
-# Welcome to your Expo app 👋
+# Welcome to the Trip Tone 👋
 
+Trip Tone ensures you never miss your bus stop again! Select your destination on the map, and Trip Tone will alert you 100 meters before you need to get off. Travel worry-free with Trip Tone!
+
+### Frontend
+    ✅ React Native ✅ Type script
+
+### BackEnd
+    ✅ Node ✅ Express ✅ MongoDB
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
 ## Get started
