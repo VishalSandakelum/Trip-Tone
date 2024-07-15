@@ -9,6 +9,11 @@ Trip Tone ensures you never miss your bus stop again! Select your destination on
     ✅ Node ✅ Express ✅ MongoDB
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
+#### Features
+
+<img src="README/assets/firstpage.png">
+<img src="README/assets/permissionpage.png">
+
 ## Get started
 
 1. Install dependencies
