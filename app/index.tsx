@@ -58,6 +58,7 @@ export default function Index() {
                 se_color="#D9D9D9"
                 thir_color="#D9D9D9"
                 for_color="#D9D9D9"
+                topto={0.06}
         />
         {/*
         <Link href="/login">View details</Link>

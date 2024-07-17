@@ -6,6 +6,7 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <Stack>
         <Stack.Screen name="index" options={{headerShown:false}} />
+        <Stack.Screen name="permission" options={{headerShown:false}} />
         <Stack.Screen name="login" />
       </Stack>
     </SafeAreaProvider>

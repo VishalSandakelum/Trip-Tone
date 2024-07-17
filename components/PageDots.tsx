@@ -1,12 +1,15 @@
 import { View, StyleSheet, Dimensions } from 'react-native'
+import { Link } from 'expo-router';
 
 const { width, height } = Dimensions.get('window');
 
-export function PageDots({ color = "#D9D9D9" , se_color = "#D9D9D9", thir_color = "#D9D9D9", for_color = "#D9D9D9"}) {
+export function PageDots({ color = "#D9D9D9" , se_color = "#D9D9D9", thir_color = "#D9D9D9", for_color = "#D9D9D9", topto = 0}) {
     return(
-        <View style = {styles.dotcontainer}>
+        <View style = {[styles.dotcontainer, {marginTop: height*topto}]}>
             <View style = {[styles.dot, { backgroundColor: color }]}></View>
-            <View style = {[styles.dot, { backgroundColor: se_color }]}></View>
+            <View style = {[styles.dot, { backgroundColor: se_color }]}>
+            <Link href="/permission"></Link>
+            </View>
             <View style = {[styles.dot, { backgroundColor: thir_color }]}></View>
             <View style = {[styles.dot, { backgroundColor: for_color }]}></View>
         </View>
@@ -19,7 +22,6 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         gap: 8,
-        marginTop: height*0.06
     },
 
     dot:{
