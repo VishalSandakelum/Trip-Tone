@@ -13,6 +13,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 <img src="README/assets/firstpage.png">
 <img src="README/assets/permissionpage.png">
+<img src="README/assets/signinpage.png">
 
 ## Get started
 
