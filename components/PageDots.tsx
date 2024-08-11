@@ -15,7 +15,9 @@ export function PageDots({ color = "#D9D9D9" , se_color = "#D9D9D9", thir_color 
             <View style = {[styles.dot, { backgroundColor: thir_color }]}>
                 <Link href="/signin"></Link>
             </View>
-            <View style = {[styles.dot, { backgroundColor: for_color }]}></View>
+            <View style = {[styles.dot, { backgroundColor: for_color }]}>
+                <Link href="/(tabs)"></Link>
+            </View>
         </View>
     );
 }

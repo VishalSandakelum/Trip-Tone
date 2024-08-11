@@ -1,7 +1,11 @@
 import { View, Text, TextInput, Dimensions } from "react-native";
 import {  useFonts, Inter_600SemiBold, Inter_300Light } from '@expo-google-fonts/inter';
+import { useState } from "react";
 
 const { width, height } = Dimensions.get('window');
+
+const[email, setEmail]=useState("");
+const[password, setPassword]=useState("");
 
 export function Input({placeholder = ""}){
     let [fontsLoaded] = useFonts({
@@ -24,7 +28,7 @@ export function Input({placeholder = ""}){
                color: '#706C6C',
                marginLeft: width*0.02, 
             }}>{placeholder}</Text>
-            <TextInput style = {{
+            <TextInput value={email} onChangeText={setEmail} style = {{
                 backgroundColor: '#D9D9D9',
                 height: height*0.07,
                 borderRadius: 10,
@@ -33,7 +37,7 @@ export function Input({placeholder = ""}){
                 fontFamily: 'Inter_600SemiBold',
                 color: '#000000',
                 textDecorationLine: "none",
-                marginTop: height*0.01
+                marginTop: height*0.01,
             }}
             placeholder={placeholderText}
             placeholderTextColor="#000000"
