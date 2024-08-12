@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Dimensions, Alert } from "react-native";
+import { View, Text, StyleSheet, Dimensions, Alert, Vibration } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MapView, {Marker} from 'react-native-maps';
 import { useState, useRef, useEffect } from "react";
@@ -8,6 +8,7 @@ import { ChooseLocation } from './../../components/ChooseLocation';
 import ApiKey from "@/ApiKey";
 
 import * as Location from 'expo-location';
+import { getDistance } from 'geolib';
 
 const screen = Dimensions.get('window');
 const ASPECT_RATIO = screen.width/screen.height;
@@ -25,8 +26,9 @@ export default function Index(){
         longitude: 76.7179,
     });
 
+    const [distance, setDistance] = useState<number>(0);
+
     const mapRef = useRef<MapView>(null);
-    //const {pickupCords, droplocationCors} = state
     const GOOGLE_MAPS_APIKEY = ApiKey.GOOGLE_MAPS_APIKEY;
     useEffect(() => {
         const requestLocationPermission = async () => {
@@ -58,6 +60,19 @@ export default function Index(){
 
         requestLocationPermission();
     }, []);
+
+    useEffect(() => {
+        const calculatedDistance = getDistance(pickupCords, droplocationCors);
+        setDistance(calculatedDistance);
+        console.log(distance);
+
+        if(distance<=900){
+            Vibration.vibrate(10000); 
+        }else{
+            console.log('Oops');
+        }
+
+    }, [pickupCords, droplocationCors]);
 
     return(
         <SafeAreaView style={{ flex: 1 }}>

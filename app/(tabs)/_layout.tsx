@@ -57,7 +57,7 @@ export default function TabLayout() {
               source={require('../../assets/images/tabsimage/settings.png')}
               style={{ width: 29, height: 29, tintColor: color }}
           ></Image>
-        ),
+        ), headerShown:false
        }} />
     </Tabs>
   );
