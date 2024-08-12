@@ -25,7 +25,7 @@ export default function Index(){
 
     const mapRef = useRef<MapView>(null);
     const {pickupCords, droplocationCors} = state
-    const GOOGLE_MAPS_APIKEY = 'AIzaSyCXsGWWknJtE9W7Ti432XFuhCcBy6uZs2Q';
+    const GOOGLE_MAPS_APIKEY = '';
 
     return(
         <SafeAreaView style={{ flex: 1 }}>
