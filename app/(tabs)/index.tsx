@@ -1,39 +1,74 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MapView, {Marker} from 'react-native-maps';
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import MapViewDirections from "react-native-maps-directions";
 import imagePath from "../imagePath";
 import { ChooseLocation } from './../../components/ChooseLocation';
 import ApiKey from "@/ApiKey";
 
-export default function Index(){
-    const [state, setState] = useState({
-        pickupCords:{
-            latitude: 30.7046,
-            longitude: 76.7179,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-        },
+import * as Location from 'expo-location';
 
-        droplocationCors:{
-            latitude: 30.7333,
-            longitude: 76.7794,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-        }
-    })
+const screen = Dimensions.get('window');
+const ASPECT_RATIO = screen.width/screen.height;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
+export default function Index(){
+    const [pickupCords, setPickupCords] = useState({
+        latitude: 30.7333,
+        longitude: 76.7794,
+    });
+    
+    const [droplocationCors, setDroplocationCors] = useState({
+        latitude: 0,
+        longitude: 76.7179,
+    });
 
     const mapRef = useRef<MapView>(null);
-    const {pickupCords, droplocationCors} = state
+    //const {pickupCords, droplocationCors} = state
     const GOOGLE_MAPS_APIKEY = ApiKey.GOOGLE_MAPS_APIKEY;
+    useEffect(() => {
+        const requestLocationPermission = async () => {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                Alert.alert('Permission Denied', 'Location permission is required to show your current location');
+                return;
+            }
+
+            Location.watchPositionAsync(
+                {
+                    accuracy: Location.Accuracy.High,
+                    timeInterval: 5000, // Update every 5 seconds
+                    distanceInterval: 10, // Update every 10 meters
+                },
+                (location) => {
+                    const { latitude, longitude } = location.coords;
+                    setPickupCords({ latitude, longitude });
+                    mapRef.current?.animateCamera({
+                        center: { latitude, longitude },
+                        pitch: 0,
+                        heading: 0,
+                        altitude: 1000,
+                        zoom: 15, // Adjust the zoom level as needed
+                    }, { duration: 1000 }); // Smooth animation duration
+                }
+            );
+        };
+
+        requestLocationPermission();
+    }, []);
 
     return(
         <SafeAreaView style={{ flex: 1 }}>
             <View style={StyleSheet.absoluteFill}>
                 <MapView ref={mapRef}
                     style={StyleSheet.absoluteFill}
-                    initialRegion={pickupCords}
+                    initialRegion={{
+                        ...pickupCords,
+                        latitudeDelta: LATITUDE_DELTA,
+                        longitudeDelta: LONGITUDE_DELTA,
+                    }}
                 >
                     <Marker coordinate={pickupCords} image={imagePath.isGoldMarker}/>
                     <Marker coordinate={droplocationCors}/>
@@ -59,7 +94,7 @@ export default function Index(){
                         }}
                     />
                 </MapView>
-                <ChooseLocation/>
+                <ChooseLocation setDroplocationCors={setDroplocationCors}/>
             </View>
         </SafeAreaView>
     )
