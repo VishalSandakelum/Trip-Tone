@@ -5,6 +5,7 @@ import { useState, useRef } from "react";
 import MapViewDirections from "react-native-maps-directions";
 import imagePath from "../imagePath";
 import { ChooseLocation } from './../../components/ChooseLocation';
+import ApiKey from "@/ApiKey";
 
 export default function Index(){
     const [state, setState] = useState({
@@ -25,7 +26,7 @@ export default function Index(){
 
     const mapRef = useRef<MapView>(null);
     const {pickupCords, droplocationCors} = state
-    const GOOGLE_MAPS_APIKEY = '';
+    const GOOGLE_MAPS_APIKEY = ApiKey.GOOGLE_MAPS_APIKEY;
 
     return(
         <SafeAreaView style={{ flex: 1 }}>
